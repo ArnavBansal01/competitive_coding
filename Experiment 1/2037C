@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool checkprime(int val) {
+    if (val < 2) return false;
+    for (int d = 2; d * d <= val; d++) {
+        if (val % d == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    int tests;
+    cin >> tests;
+
+    while (tests--) {
+        int n;
+        cin >> n;
+
+        if (n == 2 || n == 3) {
+            cout << -1 << "\n";
+            continue;
+        }
+
+        vector<int> result;
+        vector<int> used(n + 1, 0);
+
+        result.push_back(1);
+        used[1] = 1;
+
+        for (int pos = 2; pos <= n; pos++) {
+            bool placed = false;
+            for (int num = 2; num <= n; num++) {
+                if (!used[num] && !checkprime(result.back() + num)) {
+                    result.push_back(num);
+                    used[num] = 1;
+                    placed = true;
+                    break;
+                }
+            }
+            if (!placed) break;
+        }
+
+        if ((int)result.size() != n) {
+            cout << -1 << "\n";
+        } else {
+            for (int x : result) cout << x << " ";
+            cout << "\n";
+        }
+    }
+
+    return 0;
+}
