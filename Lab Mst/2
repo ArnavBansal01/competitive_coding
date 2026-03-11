@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+            int left=0,n=nums.size(),right=n-1,count=0;
+                    while(left<=right){
+                        if(x==0)return count;
+                        if(x-nums[left]>=0&&nums[left]>nums[right]){
+                            x-=nums[left];
+                            
+                            left++;
+                            count++;
+                        }
+                        else if(x-nums[right]>=0){
+                            x-=nums[right];
+                           
+                            right--;
+                            count++;
+                        }
+                        else{return -1;}
+                    }
+
+if(x==0)return count;
+return -1 ;
+
+
+    }
+};
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        int total = 0;
+        for(int num : nums) total += num;
+        int target = total - x;
+        if(target < 0) return -1;
+
+        int n = nums.size(), left = 0, Sum = 0, maxlen = -1;
+
+        for(int right = 0; right < n; right++) {
+            Sum += nums[right];
+
+            while(currSum > target && left <= right) {
+                Sum -= nums[left];
+                left++;
+            }
+
+            if(currSum == target) {
+                maxlen = max(maxLen, right - left + 1);
+            }
+        }
+if(maxlen==0)return -1;
+return n-maxlen;
+    }
+};
